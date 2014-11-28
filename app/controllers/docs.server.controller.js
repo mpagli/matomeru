@@ -8,7 +8,7 @@
  exec = require('child_process').exec,
  fs = require('fs');
 
- exports.process = function(req, res) {
+ exports.processFile = function(req, res) {
 
   fs.readFile(req.files.doc.path, function (err, data) {
    if (err) {

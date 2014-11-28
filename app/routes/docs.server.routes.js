@@ -8,8 +8,6 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
   app.route('/docs/process')
-    .put(docs.update);
+    .put(docs.processFile);
 
-  // Doc middleware
-  app.param('docId', docs.docByID);
 };
