@@ -7,17 +7,14 @@ import json
 class LDA_processor(object):
 	"""class responsible of processing the raw list of documents. Generate a list of bow representation."""
 
-	def __init__(self,corpus,id2token,token2id,numTopics=5,alpha=None,beta=None,topk_phi=5,topk_theta=3):
+	def __init__(self,bowCorpus,id2token,numTopics=5,alpha=None,beta=None,topk_phi=5,topk_theta=3):
 		"""corpus is a tokenized version of the corpus: a list of list of tokens"""
 		self.dictionary = gensim.corpora.Dictionary()
-		self.dictionary.token2id = token2id
 		self.dictionary.id2token = id2token
 		self.topk_phi = topk_phi
 		self.topk_theta = topk_theta
 		self.numTopics = numTopics
-		self.corpus = []
-		for doc in corpus:
-			self.corpus.append(self.dictionary.doc2bow(doc,allow_update=False))
+		self.corpus = bowCorpus
 		self.lda = gensim.models.ldamodel.LdaModel(corpus=self.corpus, id2word=self.dictionary.id2token, num_topics=numTopics,alpha=alpha,eta=beta)
 
 	def dumpJson(self):
@@ -38,18 +35,11 @@ class LDA_processor(object):
 
 if __name__ == "__main__":
 
-	corpus = [['a','b','c','d','a'],['e','g','g','b','a'],['e','g','e','e','r']]
+	corpus = [[(1,2),(2,3),(3,1),(4,8)],[(1,5),(2,1),(3,4),(4,1),(6,8)],[(1,3),(2,6),(3,1),(4,5),(5,1)]]
 
-	id2token = {}
-	token2id = {}
+	id2token = {0:'hallo',1:'bonjour',2:'konichiha',3:'hello',4:'ni-hao',5:'salam',6:'hola'}
 
-	for doc in corpus:
-		for word in doc:
-			if word not in token2id:
-				token2id[word] = len(token2id)
-				id2token[len(id2token)] = word
-
-	lda = LDA_processor(corpus,id2token,token2id)
+	lda = LDA_processor(corpus,id2token)
 	lda.dumpJson()
 	"""
 	{
