@@ -1,34 +1,104 @@
-<section class="row" data-ng-controller="SettingsController">
-	<h3 class="col-md-12 text-center">Edit your profile</h3>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
-			<fieldset>
-				<div class="form-group">
-					<label for="firstName">First Name</label>
-					<input type="text" id="firstName" name="firstName" class="form-control" data-ng-model="user.firstName" placeholder="First Name">
-				</div>
-				<div class="form-group">
-					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
-				</div>
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-primary">Save Profile</button>
-				</div>
-				<div data-ng-show="success" class="text-center text-success">
-					<strong>Profile Saved Successfully</strong>
-				</div>
-				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
+<div class="jumbotron page-cover text-center">
+	<div class="overlay">
+		<div class="row">
+			<h1>Edit your profile</h1>
+			<p>We want to know more about you</p>
+		</div>
 	</div>
+</div>
+<section class="container" data-ng-controller="SettingsController">
+	<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin" autocomplete="off">
+		<div class="col-xs-12 col-md-6">
+		{{user.firstName}} {{user.lastName}}<br><br>
+		<!--
+			<div class="form-group">
+				<label for="firstName">First Name</label>
+				<input type="text" id="firstName" name="firstName" class="form-control" data-ng-model="user.firstName" placeholder="First Name">
+			</div>
+			<div class="form-group">
+				<label for="lastName">Last Name</label>
+				<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
+			</div> -->
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label for="about">About me</label>
+				<textarea id="username" name="about" class="form-control" data-ng-model="user.description" placeholder="Tell us a bit more about you."></textarea>
+			</div>
+						<div class="form-group">
+			<label for="about">Languages</label>
+			<select multiple  class="form-control" ng-model="user.languages" ng-options="o as o for o in opts"></select>
+		</div></div>
+		<div class="col-xs-12 col-md-6">
+		<div class="form-group">
+			<label for="username">I'm looking for</label>
+			<div class="btn-lg-group">
+				<label class="btn-lg btn-primary" name="expatBuddy" ng-model="user.expatBuddy" btn-radio="'expat'" uncheckable>An expat</label>
+				<label class="btn-lg btn-primary" ng-model="user.expatBuddy" btn-radio="'buddy'" uncheckable>A buddy</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="buddyLabel" ng-show="user.expatBuddy=='expat'">
+				I'm offering to
+			</div>
+			<div class="buddyLabel" ng-show="user.expatBuddy=='buddy'">
+				I want to
+			</div>
+			<input type="checkbox" name="discover" ng-model="user.tasks.coffee">
+			<label for="discover" >Just have a coffee</label>  <br/>
+
+
+			<input type="checkbox" name="discover" ng-model="user.tasks.tourism">
+			<label for="discover"  ng-show="user.expatBuddy=='expat'">Discover the area</label> 
+			<label for="discover" ng-show="user.expatBuddy=='buddy'">Show the area</label>  <br/>
+
+			<input type="checkbox" name="discover" ng-model="user.tasks.languageLearning"> 
+			<label for="discover"  ng-show="user.expatBuddy=='expat'">Learn the language</label> 
+			<label for="discover" ng-show="user.expatBuddy=='buddy'">Teach my language</label><br/>
+
+			<input type="checkbox" name="discover" ng-model="user.tasks.administrativeHelp">
+			<label for="discover"  ng-show="user.expatBuddy=='expat'">Fill some administrative papers</label> 
+			<label for="discover"  ng-show="user.expatBuddy=='buddy'">Help with administrative stuffs</label>  <br/>
+
+			<input type="checkbox" name="discover" ng-model="user.tasks.accomodationHelp">
+			<label for="discover"  ng-show="user.expatBuddy=='expat'">Find an apartment</label> 
+			<label for="discover"  ng-show="user.expatBuddy=='buddy'">Help to find an accomodation</label> <br/>
+
+		</div>
+		<div class="form-group">
+			<label><i class="fa fa-home"></i> Address</label>
+
+			<input class="form-control" ng-model="user.address" data-animation="am-flip-x" typeahead="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" placeholder="Please enter your address or city" typeahead-on-select="onSelect($item)" type="text">
+
+		</div>
+
+		<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+			<label for="discover"  ng-show="user.expatBuddy=='expat'">I arrived on </label> 
+			<label for="discover"  ng-show="user.expatBuddy=='buddy'">I live here since </label>
+			<p class="input-group">
+			<input class="form-control"  datepicker-popup="yyyy/MM/dd" datepicker-options="dateOptions" is-open="opened" ng-model="user.arrivalDate" name="date" bs-datepicker type="text">
+			              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+              </p>
+		</div>
+		</div>
+		<div class="text-center form-group">
+			<button type="submit" class="btn btn-large btn-primary">Save Profile</button>
+		</div>
+		<div data-ng-show="success" class="text-center text-success">
+			<strong>Profile Saved Successfully</strong>
+		</div>
+		<div data-ng-show="error" class="text-center text-danger">
+			<strong data-ng-bind="error"></strong>
+		</div>
+
+	</form>
 </section>

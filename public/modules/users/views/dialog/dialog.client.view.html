@@ -1,0 +1,27 @@
+<div class="jumbotron page-cover text-center">
+	<div class="overlay">
+		<div class="row">
+			<h1>Your buddies</h1>
+			<p>Chat with your new friends!</p>
+		</div>
+	</div>
+</div>
+<section class="container" data-ng-controller="FriendsController as fCtrl" data-ng-init="fCtrl.find()">
+	<div class="row">
+		<div class="list-group col-md-12">
+			<div data-ng-repeat="friend in friends" data-ng-href="" class="list-group-item">
+				<h4 class="list-group-item-heading">{{friend.displayName}}</h4>
+				<div class="form-group">
+					<label for="username">Speak :</label>
+					<p class="input-group"><input type="text" id="username" name="username" class="form-control" ng-model="msg" placeholder="Tell whatever you want !">
+					<span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="emit(friend, msg)">Send</button></span></p>
+					<textarea disabled class="form-control chat">{{chat | filterMsg: user:friend}}</textarea>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+			No friends yet. The requests will be there soon enough ♥︎.
+		</div>
+	</section>

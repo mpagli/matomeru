@@ -12,3 +12,57 @@
 	right: 10px;
 	position: absolute;
 }
+
+.fa-star{
+	color:rgb(255, 194, 0);
+}
+.fa-thumbs-up{
+	color: rgb(59, 89, 152);
+}
+
+/*.fa-user, .fa-users{
+	color: rgb(59, 89, 152);
+}*/
+
+.buddy-infos{
+	display: inline;
+}
+
+.buddy-infos.description{
+	display:  block;
+	font-style: italic;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.thumbnail{
+	padding: 10px;
+	border: none;
+	box-shadow: none;
+}
+
+img.img-rounded{
+	width: 100%;
+}
+
+.caption{
+	color: white;
+	background-color: rgba(255,255,255,0.5);
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding: 10% !important;
+	padding-bottom: 10% !important;
+}
+
+.chat {
+    white-space:pre-wrap;
+    resize: none;
+    overflow-y: scroll;
+    background: white;
+    height: 200px;
+}
+
+.ng-valid.ng-dirty {
+	border-color: rgb(204, 204, 204) !important;
+}
